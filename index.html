@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Triveni Gompa – ServiceNow HRSD Consultant · CIS-HRSD & CSA Certified · Automation, Integrations & Workflow Engineering · Hyderabad, India"/>
+<meta property="og:title" content="Triveni Gompa | ServiceNow HRSD Consultant"/>
+<meta property="og:description" content="CIS-HRSD & CSA Certified consultant delivering scalable HR automation on ServiceNow. CSAT 5/5. Open to opportunities."/>
+<meta name="theme-color" content="#06050f"/>
+<title>Triveni Gompa | ServiceNow HRSD Consultant</title>
+
+<!-- FONTS: Clash Display (premium heading) + Plus Jakarta Sans (body) + JetBrains Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+============================================================ */
+:root{
+  /* backgrounds - deep indigo-black */
+  --bg0:#06050f; --bg1:#080714; --bg2:#0c0a1a; --bg3:#100e22;
+  --bg4:#141228; --bgcard:#0d0b1e; --bgcard2:#110f26;
+
+  /* accent palette - indigo + emerald + amber */
+  --indigo:#6366f1;    --indigo-l:#818cf8;  --indigo-d:#4f46e5;
+  --indigo-dim:rgba(99,102,241,.12);  --indigo-glow:rgba(99,102,241,.25);
+  --emerald:#10b981;   --emerald-l:#34d399; --emerald-dim:rgba(16,185,129,.1);
+  --amber:#f59e0b;     --amber-l:#fbbf24;   --amber-dim:rgba(245,158,11,.1);
+  --rose:#f43f5e;      --rose-dim:rgba(244,63,94,.1);
+
+  /* text */
+  --tx1:#f1f0ff; --tx2:#9390b8; --tx3:#4e4b72; --tx4:#2a2845;
+
+  /* borders */
+  --b1:rgba(99,102,241,.15); --b2:rgba(99,102,241,.07); --b3:rgba(99,102,241,.25);
+
+  /* typography */
+  --f-head:'Plus Jakarta Sans',sans-serif;
+  --f-body:'Plus Jakarta Sans',sans-serif;
+  --f-mono:'JetBrains Mono',monospace;
+
+  /* radius */
+  --r4:4px; --r8:8px; --r12:12px; --r16:16px; --r24:24px; --rfull:999px;
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg0);color:var(--tx1);
+  font-family:var(--f-body);overflow-x:hidden;line-height:1.65;
+  cursor:none;
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg0);}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--indigo),var(--emerald));border-radius:2px;}
+::selection{background:rgba(99,102,241,.3);color:#fff;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+============================================================ */
+#progress-bar{
+  position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;
+  background:linear-gradient(90deg,var(--indigo),var(--emerald),var(--amber));
+  transition:width .1s linear;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+#cursor{
+  position:fixed;width:12px;height:12px;border-radius:50%;
+  background:var(--indigo);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);transition:transform .08s,background .2s,width .2s,height .2s;
+  mix-blend-mode:screen;
+}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(99,102,241,.5);pointer-events:none;z-index:9997;
+  transform:translate(-50%,-50%);transition:transform .18s ease,border-color .2s;
+}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{
+  width:20px;height:20px;background:var(--emerald);
+}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{
+  border-color:rgba(16,185,129,.6);width:50px;height:50px;
+}
+
+/* ============================================================
+   INTERACTIVE BACKGROUND CANVAS
+============================================================ */
+#bg-canvas{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7;
+}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+#nav{
+  position:fixed;top:0;width:100%;z-index:1000;height:62px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6%;
+  background:rgba(6,5,15,0);
+  backdrop-filter:blur(0px);
+  border-bottom:1px solid transparent;
+  transition:all .4s ease;
+}
+#nav.scrolled{
+  background:rgba(6,5,15,.92);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-color:var(--b2);
+}
+.nav-logo{
+  font-family:var(--f-mono);font-size:13px;font-weight:700;
+  color:var(--indigo-l);letter-spacing:2px;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-logo-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--emerald);
+  animation:logoPulse 2.5s ease-in-out infinite;
+}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.6);}50%{box-shadow:0 0 0 6px rgba(16,185,129,0);}}
+.nav-links{display:flex;gap:.2rem;list-style:none;align-items:center;}
+.nav-links a{
+  font-family:var(--f-mono);font-size:11.5px;font-weight:500;
+  color:var(--tx2);letter-spacing:.5px;
+  padding:6px 14px;border-radius:var(--rfull);
+  transition:all .2s;position:relative;
+}
+.nav-links a:hover,.nav-links a.active{
+  color:var(--tx1);background:var(--indigo-dim);
+}
+.nav-cta{
+  font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:1px;
+  padding:9px 22px;border-radius:var(--rfull);
+  background:linear-gradient(135deg,var(--indigo-d),var(--indigo));
+  color:#fff;border:none;cursor:pointer;
+  transition:all .25s;
+  box-shadow:0 0 0 0 var(--indigo-glow);
+}
+.nav-cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 20px var(--indigo-glow);
+}
+.nav-ham{display:none;background:none;border:none;color:var(--tx1);font-size:20px;cursor:pointer;}
+#mob-nav{
+  display:none;position:fixed;inset:0;top:62px;z-index:999;
+  background:rgba(6,5,15,.97);backdrop-filter:blur(20px);
+  flex-direction:column;gap:0;padding:2rem;
+}
+#mob-nav.open{display:flex;}
+#mob-nav a{
+  font-family:var(--f-mono);font-size:15px;color:var(--tx2);
+  padding:1rem 0;border-bottom:1px solid var(--b2);letter-spacing:1px;
+  transition:color .2s;
+}
+#mob-nav a:hover{color:var(--indigo-l);}
+
+/* ============================================================
+   SECTIONS — shared
+============================================================ */
+section{position:relative;z-index:1;}
+.sec{max-width:1160px;margin:0 auto;padding:6rem 6%;}
+.sec-tag{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:700;
+  color:var(--indigo-l);letter-spacing:4px;
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.sec-tag::before{content:'';width:28px;height:1.5px;background:var(--indigo);}
+.sec-tag::after{content:'';flex:1;height:1px;background:var(--b2);}
+.sec-h{
+  font-family:var(--f-head);font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:.5rem;
+}
+.sec-h em{font-style:normal;color:var(--indigo-l);}
+.sec-h span{
+  background:linear-gradient(135deg,var(--indigo-l),var(--emerald));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sec-sub{font-size:15px;color:var(--tx2);line-height:1.8;max-width:560px;margin-bottom:3rem;}
+.alt{background:var(--bg1);}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s;} .reveal-d2{transition-delay:.2s;} .reveal-d3{transition-delay:.3s;}
+.reveal-d4{transition-delay:.4s;} .reveal-d5{transition-delay:.5s;}
+
+/* ============================================================
+   HERO
+============================================================ */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:80px 6% 60px;position:relative;z-index:1;
+}
+.hero-inner{max-width:1160px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:5rem;align-items:center;}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:3px;
+  color:var(--emerald);margin-bottom:1.8rem;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--emerald);}
+
+.hero-h1{
+  font-family:var(--f-head);font-size:clamp(3.2rem,7vw,6rem);
+  font-weight:800;line-height:1.0;letter-spacing:-3px;margin-bottom:.6rem;
+}
+.hero-name-grad{
+  background:linear-gradient(135deg,#fff 30%,var(--indigo-l) 70%,var(--emerald) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.hero-role{
+  font-family:var(--f-mono);font-size:clamp(.85rem,1.5vw,1rem);
+  color:var(--tx2);margin-bottom:1.8rem;letter-spacing:.5px;
+}
+.hero-role b{color:var(--emerald);font-weight:600;}
+
+.hero-typed-wrap{
+  font-family:var(--f-head);font-size:clamp(1.1rem,2vw,1.35rem);
+  font-weight:700;color:var(--indigo-l);margin-bottom:1.6rem;
+  min-height:2rem;
+}
+#typed-cursor{
+  display:inline-block;width:2px;height:1.2em;
+  background:var(--indigo-l);vertical-align:middle;
+  animation:blink .7s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+.hero-bio{
+  font-size:15px;color:var(--tx2);line-height:1.85;max-width:520px;
+  padding:16px 20px;margin-bottom:2rem;
+  background:rgba(99,102,241,.05);
+  border:1px solid var(--b1);border-radius:var(--r12);
+  border-left:3px solid var(--indigo);
+}
+
+.hero-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2.4rem;}
+.hchip{
+  font-family:var(--f-mono);font-size:10px;font-weight:500;letter-spacing:.5px;
+  padding:5px 13px;border-radius:var(--rfull);
+  border:1px solid var(--b1);color:var(--tx2);background:rgba(99,102,241,.05);
+  transition:all .2s;
+}
+.hchip:hover{border-color:var(--indigo);color:var(--indigo-l);background:var(--indigo-dim);}
+.hchip.g{border-color:rgba(16,185,129,.2);color:var(--emerald);background:var(--emerald-dim);}
+.hchip.a{border-color:rgba(245,158,11,.2);color:var(--amber);background:var(--amber-dim);}
+
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-main{
+  padding:14px 30px;border-radius:var(--rfull);
+  background:linear-gradient(135deg,var(--indigo-d),var(--indigo));
+  color:#fff;font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:1.5px;
+  border:none;cursor:pointer;transition:all .3s;
+  box-shadow:0 0 0 0 var(--indigo-glow);
+  position:relative;overflow:hidden;
+}
+.btn-main::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--indigo-glow);}
+.btn-main:hover::before{opacity:1;}
+.btn-out{
+  padding:14px 30px;border-radius:var(--rfull);
+  border:1.5px solid var(--b3);color:var(--tx2);
+  font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:1.5px;
+  cursor:pointer;background:transparent;transition:all .25s;
+}
+.btn-out:hover{border-color:var(--indigo-l);color:var(--indigo-l);background:var(--indigo-dim);}
+.btn-em{
+  padding:14px 30px;border-radius:var(--rfull);
+  border:1.5px solid rgba(16,185,129,.3);color:var(--emerald);
+  font-family:var(--f-mono);font-size:11.5px;font-weight:600;letter-spacing:1.5px;
+  cursor:pointer;background:var(--emerald-dim);transition:all .25s;
+}
+.btn-em:hover{background:rgba(16,185,129,.18);border-color:var(--emerald);}
+
+/* hero card */
+.hero-card{
+  background:var(--bgcard);border:1px solid var(--b1);border-radius:var(--r16);
+  padding:2rem 1.6rem;position:relative;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.hero-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(99,102,241,.12);}
+.hero-card-shine{
+  position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:linear-gradient(90deg,var(--indigo),var(--emerald),var(--amber),var(--indigo));
+  background-size:300%;
+  animation:shineMove 4s linear infinite;
+}
+@keyframes shineMove{0%{background-position:0%;}100%{background-position:300%;}}
+.hero-av{
+  width:90px;height:90px;border-radius:var(--r12);
+  margin:0 auto 1.4rem;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));
+  border:2px solid var(--b3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-mono);font-size:28px;font-weight:700;
+  color:var(--indigo-l);
+  text-shadow:0 0 30px var(--indigo-glow);
+  position:relative;
+}
+.hero-av-ring{
+  position:absolute;inset:-6px;border-radius:18px;
+  border:1px solid var(--indigo-dim);
+  animation:ringRotate 8s linear infinite;
+}
+.hero-av-ring::after{
+  content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);
+  width:6px;height:6px;border-radius:50%;background:var(--indigo-l);
+}
+@keyframes ringRotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.hc-name{font-family:var(--f-head);font-size:16px;font-weight:800;text-align:center;margin-bottom:4px;}
+.hc-role{
+  font-family:var(--f-mono);font-size:9.5px;color:var(--emerald);
+  text-align:center;letter-spacing:2px;margin-bottom:1.6rem;
+}
+.hc-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.2rem;}
+.hcs{
+  background:var(--bg3);border:1px solid var(--b2);border-radius:var(--r8);
+  padding:11px 8px;text-align:center;transition:border-color .2s;
+}
+.hcs:hover{border-color:var(--indigo);}
+.hcs-n{font-family:var(--f-mono);font-size:20px;font-weight:700;color:var(--indigo-l);}
+.hcs-l{font-size:10px;color:var(--tx3);margin-top:2px;}
+.hc-open{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px;border-radius:var(--r8);
+  background:var(--emerald-dim);border:1px solid rgba(16,185,129,.2);
+  font-family:var(--f-mono);font-size:10px;color:var(--emerald);letter-spacing:1px;
+}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--emerald);flex-shrink:0;animation:logoPulse 2s infinite;}
+.hc-links{display:flex;gap:7px;margin-top:10px;}
+.hcl{
+  flex:1;padding:9px;border:1px solid var(--b2);border-radius:var(--r8);
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  font-family:var(--f-mono);font-size:10px;color:var(--tx3);transition:all .2s;
+}
+.hcl:hover{border-color:var(--indigo);color:var(--indigo-l);}
+
+/* ============================================================
+   TICKER
+============================================================ */
+#ticker-bar{
+  background:var(--bg1);border-top:1px solid var(--b2);border-bottom:1px solid var(--b2);
+  padding:.7rem 0;overflow:hidden;position:relative;z-index:1;
+}
+.ticker-wrap{display:flex;animation:tickerRun 35s linear infinite;white-space:nowrap;}
+.ticker-wrap:hover{animation-play-state:paused;}
+.ti{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--f-mono);font-size:11px;color:var(--tx2);
+  padding:0 2.5rem;letter-spacing:.5px;
+}
+.ti-dot{width:3px;height:3px;border-radius:50%;background:var(--emerald);}
+.ti b{color:var(--indigo-l);}
+@keyframes tickerRun{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ============================================================
+   ABOUT
+============================================================ */
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:4.5rem;align-items:start;}
+.about-p{font-size:15px;color:var(--tx2);line-height:1.9;margin-bottom:1rem;}
+.about-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1.6rem;}
+.am{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r8);
+  padding:12px 14px;transition:all .25s;
+}
+.am:hover{border-color:var(--indigo);transform:translateY(-2px);}
+.am-lbl{font-family:var(--f-mono);font-size:9px;color:var(--tx3);letter-spacing:3px;margin-bottom:5px;}
+.am-val{font-size:13px;font-weight:600;color:var(--tx1);}
+.am-val.g{color:var(--emerald);}
+/* highlight pills */
+.hl-list{display:flex;flex-direction:column;gap:10px;}
+.hl{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:14px 16px;display:flex;align-items:flex-start;gap:12px;
+  transition:all .3s;
+}
+.hl:hover{border-color:var(--indigo);transform:translateX(5px);box-shadow:0 4px 20px rgba(99,102,241,.08);}
+.hl-ic{font-size:20px;flex-shrink:0;margin-top:2px;}
+.hl-t{font-size:13px;font-weight:700;color:var(--tx1);margin-bottom:3px;}
+.hl-d{font-size:12px;color:var(--tx3);line-height:1.6;}
+
+/* ============================================================
+   EXPERTISE
+============================================================ */
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;}
+.exp-c{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:1.6rem;cursor:default;
+  transition:all .35s;position:relative;overflow:hidden;
+}
+.exp-c-glow{
+  position:absolute;top:0;left:0;right:0;height:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(99,102,241,.12),transparent 70%);
+  transition:height .4s;
+}
+.exp-c:hover .exp-c-glow{height:100px;}
+.exp-c:hover{border-color:rgba(99,102,241,.3);transform:translateY(-5px);box-shadow:0 12px 40px rgba(99,102,241,.1);}
+.exp-ic{
+  font-size:28px;margin-bottom:1rem;
+  width:52px;height:52px;display:flex;align-items:center;justify-content:center;
+  background:var(--bg3);border:1px solid var(--b2);border-radius:var(--r8);
+  transition:all .3s;
+}
+.exp-c:hover .exp-ic{border-color:var(--indigo);background:var(--indigo-dim);}
+.exp-t{font-family:var(--f-head);font-size:15px;font-weight:700;margin-bottom:.7rem;}
+.exp-b{font-size:13.5px;color:var(--tx2);line-height:1.75;}
+
+/* ============================================================
+   EXPERIENCE TIMELINE
+============================================================ */
+.tl{position:relative;padding-left:32px;}
+.tl::before{
+  content:'';position:absolute;left:0;top:10px;bottom:0;width:1.5px;
+  background:linear-gradient(to bottom,var(--indigo) 0%,var(--emerald) 50%,transparent 100%);
+}
+.tl-item{position:relative;padding-bottom:4rem;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{
+  position:absolute;left:-32px;top:8px;width:14px;height:14px;border-radius:50%;
+  border:2px solid var(--indigo);background:var(--bg0);
+  transform:translateX(-6px);transition:all .3s;
+}
+.tl-item:hover .tl-dot{background:var(--indigo);box-shadow:0 0 0 5px var(--indigo-dim);}
+.tl-dot.live{background:var(--emerald);border-color:var(--emerald);box-shadow:0 0 0 4px var(--emerald-dim);}
+.tl-co{font-family:var(--f-mono);font-size:12px;font-weight:700;color:var(--indigo-l);margin-bottom:4px;}
+.tl-role{font-family:var(--f-head);font-size:19px;font-weight:800;color:var(--tx1);margin-bottom:4px;}
+.tl-loc{font-size:12px;color:var(--tx3);margin-bottom:.5rem;}
+.tl-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;}
+.tl-badge{
+  font-family:var(--f-mono);font-size:10px;color:var(--emerald);
+  padding:5px 13px;border:1px solid rgba(16,185,129,.25);
+  background:var(--emerald-dim);border-radius:var(--rfull);white-space:nowrap;
+}
+.tl-desc{font-size:14px;color:var(--tx2);line-height:1.75;margin-bottom:1.2rem;}
+.tl-ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.tl-ul li{
+  font-size:13.5px;color:var(--tx2);line-height:1.75;
+  padding:10px 12px 10px 28px;position:relative;
+  background:var(--bg2);border:1px solid var(--b2);border-radius:var(--r8);
+  transition:all .25s;
+}
+.tl-ul li:hover{border-color:var(--b1);background:var(--bgcard2);}
+.tl-ul li::before{
+  content:'▸';position:absolute;left:10px;color:var(--indigo-l);
+  font-size:10px;top:12px;
+}
+.tl-ul li b{color:var(--tx1);}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.2rem;}
+.ttag{
+  font-family:var(--f-mono);font-size:10px;padding:4px 11px;
+  border-radius:var(--r4);background:var(--indigo-dim);
+  border:1px solid rgba(99,102,241,.2);color:var(--indigo-l);
+}
+.ttag.g{background:var(--emerald-dim);border-color:rgba(16,185,129,.2);color:var(--emerald);}
+.ttag.a{background:var(--amber-dim);border-color:rgba(245,158,11,.2);color:var(--amber);}
+
+/* ============================================================
+   CASE STUDIES
+============================================================ */
+.cs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;}
+.cs-card{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:1.8rem;transition:all .3s;position:relative;overflow:hidden;
+  cursor:default;
+}
+.cs-card::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:0;
+  background:linear-gradient(to bottom,var(--indigo),var(--emerald));
+  transition:height .4s;
+}
+.cs-card:hover::before{height:100%;}
+.cs-card:hover{border-color:rgba(99,102,241,.25);transform:translateY(-5px);box-shadow:0 16px 48px rgba(99,102,241,.1);}
+.cs-num{font-family:var(--f-mono);font-size:10px;color:var(--tx3);letter-spacing:3px;margin-bottom:1rem;}
+.cs-title{font-family:var(--f-head);font-size:16px;font-weight:800;margin-bottom:1.2rem;color:var(--tx1);}
+.cs-lbl{font-family:var(--f-mono);font-size:9px;letter-spacing:3px;color:var(--tx3);margin-bottom:5px;}
+.cs-txt{font-size:13px;color:var(--tx2);line-height:1.65;margin-bottom:.8rem;}
+.cs-impact{
+  padding:10px 14px;margin-top:1rem;
+  background:var(--emerald-dim);border:1px solid rgba(16,185,129,.15);border-radius:var(--r8);
+}
+.cs-impact .cs-lbl{color:rgba(16,185,129,.6);}
+.cs-impact .cs-txt{color:var(--emerald);margin-bottom:0;}
+.cs-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:1rem;}
+.cstag{
+  font-family:var(--f-mono);font-size:10px;padding:3px 9px;
+  border-radius:var(--r4);background:var(--bg3);border:1px solid var(--b2);color:var(--tx3);
+}
+
+/* ============================================================
+   SKILLS
+============================================================ */
+.sf{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem;}
+.sf-b{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:1px;
+  padding:8px 18px;border-radius:var(--rfull);
+  border:1.5px solid var(--b2);color:var(--tx3);
+  background:transparent;cursor:pointer;transition:all .25s;
+}
+.sf-b:hover,.sf-b.on{border-color:var(--indigo);color:var(--indigo-l);background:var(--indigo-dim);}
+.sp{display:none;}
+.sp.on{display:block;}
+.stags{display:flex;flex-wrap:wrap;gap:9px;}
+.sk{
+  font-size:13px;font-weight:500;padding:8px 16px;border-radius:var(--r8);
+  background:var(--bgcard);border:1px solid var(--b2);color:var(--tx2);
+  transition:all .2s;cursor:default;
+}
+.sk:hover{border-color:var(--indigo);color:var(--indigo-l);transform:translateY(-2px);}
+.sk.g{background:var(--emerald-dim);border-color:rgba(16,185,129,.15);color:var(--emerald);}
+.sk.v{background:var(--indigo-dim);border-color:rgba(99,102,241,.2);color:var(--indigo-l);}
+.sk.a{background:var(--amber-dim);border-color:rgba(245,158,11,.2);color:var(--amber);}
+
+/* ============================================================
+   CERTIFICATIONS
+============================================================ */
+.cert-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:2rem;}
+.cert{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:1.4rem;display:flex;align-items:center;gap:1.2rem;
+  transition:all .3s;
+}
+.cert:hover{border-color:var(--emerald);transform:translateY(-3px);box-shadow:0 8px 30px var(--emerald-dim);}
+.cert-badge{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-mono);font-size:13px;font-weight:700;
+}
+.cert-badge.b{border:2px solid rgba(99,102,241,.35);background:var(--indigo-dim);color:var(--indigo-l);}
+.cert-badge.g{border:2px solid rgba(16,185,129,.35);background:var(--emerald-dim);color:var(--emerald);}
+.cert-n{font-size:14px;font-weight:700;color:var(--tx1);margin-bottom:3px;}
+.cert-by{font-size:11.5px;color:var(--tx3);}
+.cert-pill{
+  margin-left:auto;font-family:var(--f-mono);font-size:9px;letter-spacing:1px;
+  padding:4px 10px;border-radius:var(--rfull);
+  background:var(--emerald-dim);border:1px solid rgba(16,185,129,.2);color:var(--emerald);
+  flex-shrink:0;
+}
+.award-box{
+  background:linear-gradient(135deg,rgba(99,102,241,.06) 0%,rgba(16,185,129,.06) 100%);
+  border:1px solid rgba(99,102,241,.18);border-radius:var(--r16);
+  padding:2.2rem 2.5rem;display:flex;align-items:center;gap:2.2rem;flex-wrap:wrap;
+  transition:box-shadow .3s;
+}
+.award-box:hover{box-shadow:0 8px 40px rgba(99,102,241,.12);}
+.award-ic{font-size:48px;}
+.award-t{font-family:var(--f-head);font-size:19px;font-weight:800;color:var(--emerald);margin-bottom:7px;}
+.award-d{font-size:14px;color:var(--tx2);line-height:1.75;}
+.award-score{
+  margin-left:auto;text-align:center;
+  background:var(--emerald-dim);border:2px solid rgba(16,185,129,.25);
+  padding:16px 24px;border-radius:var(--r12);
+}
+.award-score .n{font-family:var(--f-mono);font-size:30px;font-weight:700;color:var(--emerald);}
+.award-score .l{font-family:var(--f-mono);font-size:9px;color:rgba(16,185,129,.5);letter-spacing:2px;margin-top:3px;}
+
+/* ============================================================
+   ROADMAP
+============================================================ */
+.road-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.road-c{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:1.6rem;transition:all .3s;
+}
+.road-c:hover{border-color:rgba(99,102,241,.3);transform:translateY(-4px);}
+.road-pill{
+  font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:2px;
+  padding:4px 11px;border-radius:var(--rfull);display:inline-block;margin-bottom:1rem;
+}
+.road-pill.s{background:var(--indigo-dim);border:1px solid rgba(99,102,241,.25);color:var(--indigo-l);}
+.road-pill.b{background:var(--emerald-dim);border:1px solid rgba(16,185,129,.25);color:var(--emerald);}
+.road-pill.p{background:var(--amber-dim);border:1px solid rgba(245,158,11,.25);color:var(--amber);}
+.road-ic{font-size:28px;margin-bottom:.8rem;}
+.road-t{font-family:var(--f-head);font-size:15px;font-weight:700;margin-bottom:.6rem;}
+.road-d{font-size:13px;color:var(--tx3);line-height:1.65;}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:start;}
+.contact-p{font-size:15px;color:var(--tx2);line-height:1.85;margin-bottom:1rem;}
+.clinks{display:flex;flex-direction:column;gap:8px;margin-top:1.6rem;}
+.cl{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r8);
+  color:var(--tx2);font-size:13.5px;transition:all .25s;
+}
+.cl:hover{border-color:var(--indigo);color:var(--indigo-l);transform:translateX(4px);}
+.cl-ic{width:20px;text-align:center;font-size:17px;flex-shrink:0;}
+.cl-lbl{font-family:var(--f-mono);font-size:9px;color:var(--tx3);letter-spacing:2px;margin-right:auto;}
+.avail-pill{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;border-radius:var(--r8);margin-top:1rem;
+  background:var(--emerald-dim);border:1px solid rgba(16,185,129,.2);
+  font-family:var(--f-mono);font-size:11px;color:var(--emerald);letter-spacing:1px;
+}
+.cf{display:flex;flex-direction:column;gap:13px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg label{font-family:var(--f-mono);font-size:9.5px;color:var(--tx3);letter-spacing:2.5px;}
+.fg input,.fg textarea,.fg select{
+  background:var(--bg2);border:1.5px solid var(--b2);border-radius:var(--r8);
+  padding:12px 14px;color:var(--tx1);font-family:var(--f-body);font-size:14px;
+  outline:none;transition:border-color .25s,box-shadow .25s;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{
+  border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-dim);
+}
+.fg textarea{resize:vertical;min-height:110px;}
+.fg select option{background:var(--bg2);}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cf-btn{
+  padding:14px;border-radius:var(--r8);
+  background:linear-gradient(135deg,var(--indigo-d),var(--indigo));
+  color:#fff;border:none;cursor:pointer;
+  font-family:var(--f-mono);font-size:11.5px;font-weight:700;letter-spacing:1.5px;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.cf-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--indigo-glow);}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer{
+  background:var(--bg1);border-top:1px solid var(--b2);
+  padding:2.2rem 6%;position:relative;z-index:1;
+}
+.foot-in{
+  max-width:1160px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.foot-brand{font-family:var(--f-mono);font-size:12px;color:var(--indigo-l);letter-spacing:3px;}
+.foot-copy{font-family:var(--f-mono);font-size:10px;color:var(--tx3);}
+.foot-links{display:flex;gap:1.5rem;}
+.foot-links a{font-family:var(--f-mono);font-size:10px;color:var(--tx3);transition:color .2s;letter-spacing:1px;}
+.foot-links a:hover{color:var(--indigo-l);}
+
+/* ============================================================
+   FLOATING CODE TAGS
+============================================================ */
+.float-el{
+  position:absolute;pointer-events:none;
+  font-family:var(--f-mono);font-weight:500;
+  animation:floatUp var(--dur,8s) ease-in-out infinite;
+  animation-delay:var(--del,0s);
+  opacity:.35;letter-spacing:.5px;
+  text-shadow:0 0 12px currentColor;
+  user-select:none;
+}
+@keyframes floatUp{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  33%{transform:translateY(-22px) rotate(4deg);}
+  66%{transform:translateY(12px) rotate(-3deg);}
+}
+
+/* ============================================================
+   GLITCH / SCANLINE AESTHETIC  — <HRSD/> vibe
+============================================================ */
+
+/* The big <HRSD/> glitch headline tag */
+.glitch-tag{
+  display:inline-block;
+  font-family:var(--f-mono);
+  font-size:clamp(12px,1.6vw,16px);
+  font-weight:700;letter-spacing:3px;
+  color:rgba(99,102,241,.5);
+  position:relative;
+  animation:glitchFade 7s ease-in-out infinite;
+  text-shadow:0 0 20px rgba(99,102,241,.3);
+  user-select:none;
+}
+.glitch-tag::before,.glitch-tag::after{
+  content:attr(data-text);
+  position:absolute;inset:0;
+  font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;
+}
+.glitch-tag::before{
+  color:rgba(16,185,129,.4);
+  animation:glitchL 6s infinite;
+  clip-path:polygon(0 15%,100% 15%,100% 40%,0 40%);
+}
+.glitch-tag::after{
+  color:rgba(244,63,94,.3);
+  animation:glitchR 6s infinite .2s;
+  clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);
+}
+@keyframes glitchFade{0%,88%,100%{opacity:.5;}90%,96%{opacity:.85;}93%,99%{opacity:.2;}}
+@keyframes glitchL{
+  0%,93%,100%{transform:translate(0);}
+  94%{transform:translate(-4px,1px);} 96%{transform:translate(2px,-1px);} 98%{transform:translate(-1px,2px);}
+}
+@keyframes glitchR{
+  0%,93%,100%{transform:translate(0);}
+  94%{transform:translate(4px,-1px);} 96%{transform:translate(-2px,1px);} 98%{transform:translate(2px,-2px);}
+}
+
+/* Scanline stripes on hero */
+#hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(
+    to bottom,transparent 0,transparent 3px,
+    rgba(99,102,241,.01) 3px,rgba(99,102,241,.01) 4px
+  );
+}
+
+/* Ambient code floaters — bigger, scattered across sections */
+.cf-ambient{
+  position:absolute;pointer-events:none;
+  font-family:var(--f-mono);font-weight:700;
+  letter-spacing:2px;font-size:clamp(11px,1.1vw,13px);
+  animation:ambFloat var(--dur,12s) ease-in-out infinite var(--del,0s);
+  opacity:0;text-shadow:0 0 14px currentColor;user-select:none;z-index:0;
+}
+@keyframes ambFloat{
+  0%{opacity:0;transform:translateY(8px);}
+  12%,78%{opacity:var(--op,.28);}
+  90%,100%{opacity:0;transform:translateY(-8px);}
+}
+
+/* Section label flicker */
+.sec-tag-inner{animation:tagFlicker 10s infinite;}
+@keyframes tagFlicker{0%,96%,100%{opacity:1;}96.5%{opacity:0;}97%{opacity:1;}97.5%{opacity:0;}}
+
+/* ============================================================
+   EDUCATION SECTION
+============================================================ */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+.edu-card{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r16);
+  padding:2rem;position:relative;overflow:hidden;transition:all .35s;
+}
+.edu-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:linear-gradient(90deg,var(--indigo),var(--emerald));
+}
+.edu-card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(99,102,241,.1);}
+.edu-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:52px;height:52px;border-radius:var(--r8);
+  background:var(--indigo-dim);border:1px solid rgba(99,102,241,.25);
+  font-size:24px;margin-bottom:1.2rem;
+}
+.edu-degree{font-family:var(--f-head);font-size:17px;font-weight:800;color:var(--tx1);margin-bottom:5px;}
+.edu-univ{font-family:var(--f-mono);font-size:11px;font-weight:700;color:var(--indigo-l);letter-spacing:1px;margin-bottom:4px;}
+.edu-period{font-size:12px;color:var(--tx3);margin-bottom:1.2rem;}
+.edu-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1rem;}
+.edu-stat{
+  padding:6px 14px;border-radius:var(--rfull);
+  font-family:var(--f-mono);font-size:11px;font-weight:700;
+}
+.edu-stat.cgpa{background:var(--emerald-dim);border:1px solid rgba(16,185,129,.25);color:var(--emerald);}
+.edu-stat.field{background:var(--indigo-dim);border:1px solid rgba(99,102,241,.2);color:var(--indigo-l);}
+.edu-highlights{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:.5rem;}
+.edu-highlights li{
+  font-size:13px;color:var(--tx2);padding-left:16px;position:relative;line-height:1.6;
+}
+.edu-highlights li::before{content:'▸';position:absolute;left:0;color:var(--indigo-l);font-size:9px;top:4px;}
+/* side panel */
+.edu-side{display:flex;flex-direction:column;gap:14px;}
+.edu-rel{
+  background:var(--bg2);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:1.4rem;transition:all .3s;
+}
+.edu-rel:hover{border-color:var(--b1);}
+.edu-rel-lbl{font-family:var(--f-mono);font-size:9px;color:var(--tx3);letter-spacing:3px;margin-bottom:8px;}
+.edu-rel-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.edu-tag{
+  font-size:12px;padding:5px 12px;border-radius:var(--r8);
+  background:var(--bgcard);border:1px solid var(--b2);color:var(--tx2);
+  transition:all .2s;
+}
+.edu-tag:hover{border-color:var(--indigo);color:var(--indigo-l);}
+.edu-tag.g{background:var(--emerald-dim);border-color:rgba(16,185,129,.15);color:var(--emerald);}
+.edu-timeline-block{
+  background:var(--bgcard);border:1px solid var(--b2);border-radius:var(--r12);
+  padding:1.4rem;
+}
+.edu-tl-item{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--b2);}
+.edu-tl-item:last-child{border-bottom:none;padding-bottom:0;}
+.edu-tl-year{font-family:var(--f-mono);font-size:10px;color:var(--indigo-l);width:65px;flex-shrink:0;padding-top:3px;}
+.edu-tl-text{font-size:13px;color:var(--tx2);line-height:1.5;}
+.edu-tl-text b{color:var(--tx1);}
+
+/* ============================================================
+   MOVEWORKS CERT STYLE
+============================================================ */
+.cert-badge.mw{
+  border:2px solid rgba(245,158,11,.35);
+  background:var(--amber-dim);color:var(--amber);
+  font-size:10px;letter-spacing:.5px;
+}
+.cert-badge.mw2{
+  border:2px solid rgba(244,63,94,.3);
+  background:var(--rose-dim);color:#fb7185;
+  font-size:10px;letter-spacing:.5px;
+}
+/* cert section sub-header */
+.cert-group-label{
+  font-family:var(--f-mono);font-size:10px;font-weight:700;
+  color:var(--tx3);letter-spacing:3px;
+  display:flex;align-items:center;gap:10px;
+  margin:1.8rem 0 .9rem;
+}
+.cert-group-label::after{content:'';flex:1;height:1px;background:var(--b2);}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-card{display:none;}
+  .about-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .edu-grid{grid-template-columns:1fr;}
+  .nav-links,.nav-cta{display:none;}
+  .nav-ham{display:block;}
+  .award-box{flex-direction:column;text-align:center;}
+  .award-score{margin-left:0;}
+}
+@media(max-width:600px){
+  .fg-row{grid-template-columns:1fr;}
+  .hero-btns{flex-direction:column;}
+  .btn-main,.btn-out,.btn-em{text-align:center;}
+  body{cursor:auto;}
+  #cursor,#cursor-ring{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="progress-bar"></div>
+
+<!-- CANVAS BACKGROUND -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- ============================================================ NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo"><div class="nav-logo-dot"></div>TG.DEV</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#case-studies">Case Studies</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:trivenigompa2688@gmail.com" class="nav-cta">Hire Me</a>
+  <button class="nav-ham" id="hamBtn" aria-label="Menu">☰</button>
+</nav>
+<div id="mob-nav">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#expertise" onclick="closeMob()">Expertise</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#case-studies" onclick="closeMob()">Case Studies</a>
+  <a href="#skills" onclick="closeMob()">Skills</a>
+  <a href="#certifications" onclick="closeMob()">Certifications</a>
+  <a href="#education" onclick="closeMob()">Education</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="mailto:trivenigompa2688@gmail.com" onclick="closeMob()">Hire Me →</a>
+</div>
+
+<!-- ============================================================ HERO -->
+<section id="hero">
+  <!-- floating code decorations — HRSD aesthetic -->
+  <div class="float-el" style="right:10%;top:16%;--dur:9s;--del:0s;font-size:13px;color:var(--indigo-l);">&lt;HRSD/&gt;</div>
+  <div class="float-el" style="right:22%;top:52%;--dur:11s;--del:2s;font-size:11px;color:var(--emerald);">{ flow }</div>
+  <div class="float-el" style="left:3%;top:32%;--dur:8s;--del:1s;font-size:10px;color:var(--tx3);">REST()</div>
+  <div class="float-el" style="left:4%;top:62%;--dur:13s;--del:3s;font-size:10px;color:var(--indigo-l);">ACL { }</div>
+  <div class="float-el" style="right:5%;top:38%;--dur:10s;--del:1.5s;font-size:10px;color:var(--amber);">fn() =&gt;</div>
+  <div class="float-el" style="left:8%;top:80%;--dur:12s;--del:4s;font-size:10px;color:var(--emerald);">&lt;Flow/&gt;</div>
+  <div class="float-el" style="right:30%;top:82%;--dur:9.5s;--del:2.5s;font-size:10px;color:var(--tx3);">SLA.run()</div>
+  <div class="float-el" style="left:18%;top:14%;--dur:14s;--del:5s;font-size:10px;color:var(--indigo-l);">glide.now()</div>
+
+  <div class="hero-inner">
+    <div>
+      <!-- <HRSD/> glitch aesthetic tag -->
+      <div class="glitch-tag" data-text="&lt;HRSD /&gt;">&lt;HRSD /&gt;</div>
+      <div class="hero-eyebrow">ServiceNow HRSD Consultant</div>
+      <h1 class="hero-h1">
+        <span class="hero-name-grad">Triveni<br>Gompa</span>
+      </h1>
+      <p class="hero-role">Automation &nbsp;·&nbsp; Integrations &nbsp;·&nbsp; <b>Workflow Engineering</b></p>
+
+      <!-- Typed animation target -->
+      <div class="hero-typed-wrap">
+        <span id="typed-text"></span><span id="typed-cursor"></span>
+      </div>
+
+      <p class="hero-bio">
+        I architect intelligent HR service delivery systems on ServiceNow — from complex lifecycle automations and deep enterprise integrations to AI-enhanced conversational workflows. CIS-HRSD &amp; CSA Certified. Consistent CSAT 5/5.
+      </p>
+      <div class="hero-chips">
+        <span class="hchip g">CIS–HRSD ✓</span>
+        <span class="hchip g">CSA Certified ✓</span>
+        <span class="hchip g">MW-PSEE ✓</span>
+        <span class="hchip g">MW-SEE ✓</span>
+        <span class="hchip">HR Case Management</span>
+        <span class="hchip">Lifecycle Events</span>
+        <span class="hchip">Flow Designer</span>
+        <span class="hchip">IntegrationHub</span>
+        <span class="hchip a">Agentic AI</span>
+        <span class="hchip a">RAG</span>
+        <span class="hchip">EC Pro</span>
+        <span class="hchip">REST / SOAP</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#experience" class="btn-main">View Experience</a>
+        <a href="#contact" class="btn-out">Get In Touch</a>
+        <a href="#" class="btn-em" onclick="alert('Add your PDF resume link here!')">Download CV</a>
+      </div>
+    </div>
+
+    <!-- ID Card -->
+    <div class="hero-card reveal reveal-d2">
+      <div class="hero-card-shine"></div>
+      <div class="hero-av">
+        <div class="hero-av-ring"></div>
+        TG
+      </div>
+      <div class="hc-name">Triveni Gompa</div>
+      <div class="hc-role">HRSD CONSULTANT · INRY</div>
+      <div class="hc-stats">
+        <div class="hcs"><div class="hcs-n">2+</div><div class="hcs-l">Yrs Exp.</div></div>
+        <div class="hcs"><div class="hcs-n">5/5</div><div class="hcs-l">CSAT</div></div>
+        <div class="hcs"><div class="hcs-n">4×</div><div class="hcs-l">Certified</div></div>
+        <div class="hcs"><div class="hcs-n">20%</div><div class="hcs-l">Efficiency↑</div></div>
+      </div>
+      <div class="hc-open"><div class="pdot"></div>Open to Opportunities</div>
+      <div class="hc-links">
+        <a href="https://linkedin.com/in/triveni-gompa" target="_blank" class="hcl">💼 LinkedIn</a>
+        <a href="mailto:trivenigompa2688@gmail.com" class="hcl">✉️ Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div id="ticker-bar">
+  <div class="ticker-wrap">
+    <span class="ti"><span class="ti-dot"></span>Associate Consultant @ <b>CPrime (INRY)</b></span>
+    <span class="ti"><span class="ti-dot"></span><b>CIS–HRSD</b> Certified</span>
+    <span class="ti"><span class="ti-dot"></span>ServiceNow <b>CSA</b> Certified</span>
+    <span class="ti"><span class="ti-dot"></span>Star of the Quarter — <b>INRY</b></span>
+    <span class="ti"><span class="ti-dot"></span>CSAT Score <b>5/5</b></span>
+    <span class="ti"><span class="ti-dot"></span>Flow Designer &amp; <b>IntegrationHub</b></span>
+    <span class="ti"><span class="ti-dot"></span>HR Case Mgmt · Lifecycle Events · <b>EC Pro</b></span>
+    <span class="ti"><span class="ti-dot"></span>REST / SOAP <b>Enterprise Integrations</b></span>
+    <span class="ti"><span class="ti-dot"></span>Agentic AI · RAG · <b>Conversational Flows</b></span>
+    <span class="ti"><span class="ti-dot"></span><b>Hyderabad, India</b> · Open to Remote</span>
+    <span class="ti"><span class="ti-dot"></span>Moveworks <b>MW-PSEE</b> Certified</span>
+    <span class="ti"><span class="ti-dot"></span>Moveworks <b>MW-SEE</b> Certified</span>
+    <!-- duplicate for infinite -->
+    <span class="ti"><span class="ti-dot"></span>Associate Consultant @ <b>CPrime (INRY)</b></span>
+    <span class="ti"><span class="ti-dot"></span><b>CIS–HRSD</b> Certified</span>
+    <span class="ti"><span class="ti-dot"></span>ServiceNow <b>CSA</b> Certified</span>
+    <span class="ti"><span class="ti-dot"></span>Star of the Quarter — <b>INRY</b></span>
+    <span class="ti"><span class="ti-dot"></span>CSAT Score <b>5/5</b></span>
+    <span class="ti"><span class="ti-dot"></span>Flow Designer &amp; <b>IntegrationHub</b></span>
+    <span class="ti"><span class="ti-dot"></span>HR Case Mgmt · Lifecycle Events · <b>EC Pro</b></span>
+    <span class="ti"><span class="ti-dot"></span>REST / SOAP <b>Enterprise Integrations</b></span>
+    <span class="ti"><span class="ti-dot"></span>Agentic AI · RAG · <b>Conversational Flows</b></span>
+    <span class="ti"><span class="ti-dot"></span><b>Hyderabad, India</b> · Open to Remote</span>
+    <span class="ti"><span class="ti-dot"></span>Moveworks <b>MW-PSEE</b> Certified</span>
+    <span class="ti"><span class="ti-dot"></span>Moveworks <b>MW-SEE</b> Certified</span>
+  </div>
+</div>
+
+<!-- ============================================================ ABOUT -->
+<section id="about" class="alt">
+  <!-- ambient code floaters -->
+  <div class="cf-ambient" style="right:3%;top:15%;--dur:11s;--del:0s;--op:.22;color:var(--indigo-l);">&lt;About /&gt;</div>
+  <div class="cf-ambient" style="left:1%;top:55%;--dur:14s;--del:3s;--op:.18;color:var(--tx3);">init()</div>
+  <div class="cf-ambient" style="right:8%;bottom:10%;--dur:9s;--del:1.5s;--op:.2;color:var(--emerald);">.profile{}</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">01 // PROFILE</span></div>
+    <h2 class="sec-h">About <em>Me</em></h2>
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="about-p">I'm a ServiceNow HRSD Consultant based in Hyderabad, India, with 2+ years of experience delivering scalable HR service delivery solutions that genuinely transform how organisations manage their people operations.</p>
+        <p class="about-p">At CPrime (INRY) — a ServiceNow Elite Partner — I work end-to-end on HRSD implementations: from requirement workshops and solution design to development, UAT, and production go-live. My work spans HR Case Management, Lifecycle Events, Employee Center Pro, and enterprise integrations.</p>
+        <p class="about-p">Beyond the platform, I'm actively building at the frontier: applying Agentic AI, Retrieval-Augmented Generation (RAG), and Conversational Flows to prototype next-generation self-service HR experiences on ServiceNow.</p>
+        <div class="about-meta">
+          <div class="am"><div class="am-lbl">LOCATION</div><div class="am-val">Hyderabad, India</div></div>
+          <div class="am"><div class="am-lbl">CURRENT ROLE</div><div class="am-val">Associate Consultant</div></div>
+          <div class="am"><div class="am-lbl">EMPLOYER</div><div class="am-val">CPrime (INRY)</div></div>
+          <div class="am"><div class="am-lbl">STATUS</div><div class="am-val g">Open to Opportunities</div></div>
+        </div>
+      </div>
+      <div class="hl-list reveal reveal-d2">
+        <div class="hl"><span class="hl-ic">🏗️</span><div><div class="hl-t">End-to-End HRSD Architect</div><div class="hl-d">Complete implementations from requirements to production — HR Cases, Lifecycle Events, ESC.</div></div></div>
+        <div class="hl"><span class="hl-ic">⚙️</span><div><div class="hl-t">Automation-First Engineer</div><div class="hl-d">SLA escalations, approval chains, and multi-trigger notifications via Flow Designer &amp; IntegrationHub.</div></div></div>
+        <div class="hl"><span class="hl-ic">🔗</span><div><div class="hl-t">Enterprise Integration Expert</div><div class="hl-d">Fault-tolerant REST &amp; SOAP integrations with HRIS, payroll, and ERP systems.</div></div></div>
+        <div class="hl"><span class="hl-ic">🔒</span><div><div class="hl-t">Security &amp; Data Governance</div><div class="hl-d">Comprehensive ACL and RBAC frameworks for HR data compliance and access control.</div></div></div>
+        <div class="hl"><span class="hl-ic">🤖</span><div><div class="hl-t">AI-Enhanced Workflows</div><div class="hl-d">Agentic AI, RAG pipelines, and Conversational Flows for next-gen HR self-service.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ EXPERTISE -->
+<section id="expertise">
+  <div class="cf-ambient" style="left:2%;top:20%;--dur:13s;--del:2s;--op:.2;color:var(--indigo-l);">&lt;Expertise /&gt;</div>
+  <div class="cf-ambient" style="right:2%;top:50%;--dur:10s;--del:0s;--op:.18;color:var(--tx3);">fn.deploy()</div>
+  <div class="cf-ambient" style="left:4%;bottom:15%;--dur:15s;--del:4s;--op:.22;color:var(--emerald);">[HRSD]</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">02 // COMPETENCIES</span></div>
+    <h2 class="sec-h">Core <span>Expertise</span></h2>
+    <p class="sec-sub">Six deep areas of ServiceNow HRSD specialisation, built through real enterprise delivery at a ServiceNow Elite Partner.</p>
+    <div class="exp-grid">
+      <div class="exp-c reveal"><div class="exp-c-glow"></div><div class="exp-ic">👥</div><div class="exp-t">HR Case Management &amp; Lifecycle Events</div><div class="exp-b">End-to-end HR case workflows, multi-stage lifecycle events, onboarding &amp; offboarding automation, SLA tracking, escalation chains, and HR service categorisation with role-based routing.</div></div>
+      <div class="exp-c reveal reveal-d1"><div class="exp-c-glow"></div><div class="exp-ic">🔄</div><div class="exp-t">Workflow Automation &amp; Flow Designer</div><div class="exp-b">Complex multi-step flows, conditional branching, approval loops, SLA-driven notifications, scheduled automations, and reusable subflow libraries built with Flow Designer.</div></div>
+      <div class="exp-c reveal reveal-d2"><div class="exp-c-glow"></div><div class="exp-ic">🌐</div><div class="exp-t">Employee Center Pro &amp; Self-Service</div><div class="exp-b">EC Pro configuration, Service Catalog design, Record Producer optimisation, knowledge management integration, Now Mobile enablement, and self-service adoption strategy.</div></div>
+      <div class="exp-c reveal reveal-d3"><div class="exp-c-glow"></div><div class="exp-ic">🔗</div><div class="exp-t">Enterprise Integrations</div><div class="exp-b">Secure REST and SOAP integrations with HRIS, payroll, and ERP systems — with authentication, payload mapping, error handling, retry logic, and audit logging.</div></div>
+      <div class="exp-c reveal reveal-d4"><div class="exp-c-glow"></div><div class="exp-ic">💻</div><div class="exp-t">Platform Development &amp; Scripting</div><div class="exp-b">Business Rules, Client Scripts, Script Includes, UI Policies, Glide API for complex business logic, and ACL &amp; RBAC configuration for enterprise-grade data security.</div></div>
+      <div class="exp-c reveal reveal-d5"><div class="exp-c-glow"></div><div class="exp-ic">🤖</div><div class="exp-t">AI &amp; Conversational Automation</div><div class="exp-b">Agentic AI workflows, RAG pipelines, Prompt-Tuning, Conversational Flows, and Virtual Agent design for intelligent, adaptive HR service experiences on ServiceNow.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ EXPERIENCE -->
+<section id="experience" class="alt">
+  <div class="cf-ambient" style="right:2%;top:10%;--dur:12s;--del:1s;--op:.2;color:var(--indigo-l);">&lt;Career /&gt;</div>
+  <div class="cf-ambient" style="left:1%;top:40%;--dur:9s;--del:0s;--op:.18;color:var(--tx3);">INRY{}</div>
+  <div class="cf-ambient" style="right:5%;bottom:20%;--dur:16s;--del:5s;--op:.2;color:var(--emerald);">@CPrime</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">03 // CAREER</span></div>
+    <h2 class="sec-h">Professional <span>Journey</span></h2>
+    <div class="tl reveal">
+      <div class="tl-item">
+        <div class="tl-dot live"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">CPrime (INRY) — ServiceNow Elite Partner</div>
+            <div class="tl-role">Associate Consultant – ServiceNow HRSD</div>
+            <div class="tl-loc">📍 Hyderabad, India</div>
+          </div>
+          <span class="tl-badge">Feb 2024 – Present</span>
+        </div>
+        <p class="tl-desc">Designing, building, and optimising enterprise HRSD solutions across HR Case Management, Lifecycle Events, Employee Service Center, and enterprise integrations for global clients at a ServiceNow Elite Partner.</p>
+        <ul class="tl-ul">
+          <li><b>HRSD Implementation:</b> Delivered end-to-end HR Case Management with Lifecycle Events and Employee Service Center, improving service efficiency, resolution speed, and employee experience across multiple enterprise clients.</li>
+          <li><b>Workflow Automation:</b> Designed complex flows using Flow Designer and IntegrationHub — covering multi-stage approvals, dynamic SLA-driven escalation chains, conditional branching, and scheduled automated notifications.</li>
+          <li><b>Backend Engineering:</b> Developed Business Rules, Client Scripts, and Script Includes leveraging Glide API to enforce complex business logic, cross-table data validation, and HR process optimisation at scale.</li>
+          <li><b>Service Catalog:</b> Architected and optimised Record Producers and catalog items enabling scalable HR self-service, reducing manual ticket creation and improving employee satisfaction scores.</li>
+          <li><b>Enterprise Integrations:</b> Implemented secure REST and SOAP integrations ensuring fault-tolerant, auditable data exchange between ServiceNow and external HRIS, payroll, and ERP platforms.</li>
+          <li><b>Security Architecture:</b> Configured comprehensive ACL and RBAC frameworks enforcing data governance, compliance, and role-appropriate HR data access across all HRSD modules.</li>
+          <li><b>AI &amp; Future Workflows:</b> Prototyping Agentic AI, RAG pipelines, and Conversational Flows to build next-generation self-service HR experiences on the ServiceNow platform.</li>
+          <li><b>Recognition:</b> Awarded <em>Star of the Quarter</em> by INRY for delivering scalable HRSD implementations and maintaining a perfect CSAT 5/5 across all client engagements.</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">HRSD</span><span class="ttag">HR Case Management</span><span class="ttag">Lifecycle Events</span>
+          <span class="ttag">Flow Designer</span><span class="ttag">IntegrationHub</span><span class="ttag">EC Pro</span>
+          <span class="ttag g">REST/SOAP</span><span class="ttag g">Glide API</span>
+          <span class="ttag a">Agentic AI</span><span class="ttag a">RAG</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">DRDO – Defence Research &amp; Development Organisation</div>
+            <div class="tl-role">Engineering Intern</div>
+            <div class="tl-loc">📍 Hyderabad, India</div>
+          </div>
+          <span class="tl-badge">Apr 2023 – Jun 2023</span>
+        </div>
+        <ul class="tl-ul">
+          <li><b>Process Optimisation:</b> Improved workflow efficiency by 20% through targeted backend scripting optimisations, bottleneck identification, and removal of redundant processing steps.</li>
+          <li><b>System Validation:</b> Ensured reliability and accuracy of critical workflows through systematic configuration validation, boundary-case testing, and outcome documentation.</li>
+          <li>Gained foundational experience in high-rigor engineering environments, building habits of precision, iterative improvement, and technical documentation.</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Backend Scripting</span><span class="ttag">System Validation</span><span class="ttag">Process Optimisation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CASE STUDIES -->
+<section id="case-studies">
+  <div class="cf-ambient" style="right:2%;top:12%;--dur:11s;--del:0s;--op:.2;color:var(--indigo-l);">&lt;Projects /&gt;</div>
+  <div class="cf-ambient" style="left:1%;bottom:20%;--dur:14s;--del:3s;--op:.18;color:var(--tx3);">case.solve()</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">04 // PROJECTS</span></div>
+    <h2 class="sec-h">Case <span>Studies</span></h2>
+    <p class="sec-sub">Real delivery. Real impact. Each project highlights a distinct dimension of HRSD expertise.</p>
+    <div class="cs-grid">
+      <div class="cs-card reveal"><div class="cs-num">CASE_01</div><div class="cs-title">HR Service Delivery Implementation</div><div class="cs-lbl">Challenge</div><div class="cs-txt">Unstructured case routing, missed SLAs, and no lifecycle visibility were degrading employee experience and HR team performance.</div><div class="cs-lbl">Solution</div><div class="cs-txt">Built HR Case Management with intelligent SLA tracking, multi-tier automated escalation workflows, and real-time HR dashboards.</div><div class="cs-impact"><div class="cs-lbl">Impact</div><div class="cs-txt">Improved resolution times, increased SLA compliance, and drove CSAT to 5/5 through consistent automated service delivery.</div></div><div class="cs-tags"><span class="cstag">HRSD</span><span class="cstag">Flow Designer</span><span class="cstag">SLA Mgmt</span><span class="cstag">Lifecycle Events</span></div></div>
+      <div class="cs-card reveal reveal-d1"><div class="cs-num">CASE_02</div><div class="cs-title">HR Automation Portal – Onboarding &amp; Offboarding</div><div class="cs-lbl">Challenge</div><div class="cs-txt">Manual onboarding created delays, inconsistent task completion, and security gaps from delayed access revocation across departments.</div><div class="cs-lbl">Solution</div><div class="cs-txt">Designed a full automation portal using Record Producers with input validation, dynamic RBAC, and automated cross-department task assignment covering IT, Facilities, and HR.</div><div class="cs-impact"><div class="cs-lbl">Impact</div><div class="cs-txt">Eliminated manual coordination, accelerated onboarding speed, and ensured zero missed offboarding tasks via automated tracking.</div></div><div class="cs-tags"><span class="cstag">Record Producers</span><span class="cstag">RBAC</span><span class="cstag">IntegrationHub</span><span class="cstag">Lifecycle Events</span></div></div>
+      <div class="cs-card reveal reveal-d2"><div class="cs-num">CASE_03</div><div class="cs-title">Enterprise REST/SOAP Integration Framework</div><div class="cs-lbl">Challenge</div><div class="cs-txt">HR data silos between ServiceNow and external HRIS/payroll systems caused inconsistency, duplicate manual entry, and delayed record updates.</div><div class="cs-lbl">Solution</div><div class="cs-txt">Built a secure, reusable integration framework for bi-directional HR data sync — with authentication, payload mapping, retry logic, error handling, and audit logging.</div><div class="cs-impact"><div class="cs-lbl">Impact</div><div class="cs-txt">Eliminated manual data entry, ensured real-time record accuracy, and established a reusable pattern adopted across multiple client engagements.</div></div><div class="cs-tags"><span class="cstag">REST API</span><span class="cstag">SOAP</span><span class="cstag">IntegrationHub</span><span class="cstag">Security</span></div></div>
+      <div class="cs-card reveal reveal-d3"><div class="cs-num">CASE_04</div><div class="cs-title">Employee Center Pro Self-Service Rollout</div><div class="cs-lbl">Challenge</div><div class="cs-txt">Employees relied on email and calls for HR requests — creating high agent load, no request visibility, and poor self-service adoption.</div><div class="cs-lbl">Solution</div><div class="cs-txt">Launched EC Pro as the unified HR portal — with curated catalog items, knowledge integration, role-specific landing pages, and Now Mobile support.</div><div class="cs-impact"><div class="cs-lbl">Impact</div><div class="cs-txt">Significant self-service adoption increase, substantially reduced agent-handled tickets, and measurably improved employee experience scores.</div></div><div class="cs-tags"><span class="cstag">EC Pro</span><span class="cstag">Now Mobile</span><span class="cstag">Knowledge Mgmt</span><span class="cstag">Service Catalog</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SKILLS -->
+<section id="skills" class="alt">
+  <div class="cf-ambient" style="right:3%;top:15%;--dur:10s;--del:2s;--op:.22;color:var(--indigo-l);">&lt;Skills /&gt;</div>
+  <div class="cf-ambient" style="left:1%;top:60%;--dur:13s;--del:0s;--op:.18;color:var(--emerald);">import{}</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">05 // TECH STACK</span></div>
+    <h2 class="sec-h">Technical <span>Skills</span></h2>
+    <p class="sec-sub">Filter by category to explore the full depth of my ServiceNow platform and development expertise.</p>
+    <div class="sf reveal" id="sfWrap">
+      <button class="sf-b on" data-t="all">All Skills</button>
+      <button class="sf-b" data-t="platform">ServiceNow Platform</button>
+      <button class="sf-b" data-t="dev">Development</button>
+      <button class="sf-b" data-t="auto">Automation</button>
+      <button class="sf-b" data-t="integ">Integrations</button>
+      <button class="sf-b" data-t="ai">AI &amp; Emerging</button>
+      <button class="sf-b" data-t="tools">Tools &amp; Languages</button>
+    </div>
+    <div id="all" class="sp on reveal"><div class="stags"><span class="sk g">HRSD</span><span class="sk g">HR Case Management</span><span class="sk g">Lifecycle Events</span><span class="sk g">Employee Service Center</span><span class="sk g">EC Pro</span><span class="sk g">Now Mobile</span><span class="sk">Service Catalog</span><span class="sk">Knowledge Management</span><span class="sk">ACL / RBAC</span><span class="sk">Flow Designer</span><span class="sk">IntegrationHub</span><span class="sk">Business Rules</span><span class="sk">Client Scripts</span><span class="sk">Script Includes</span><span class="sk">Glide API</span><span class="sk">Record Producers</span><span class="sk">UI Policies</span><span class="sk">SLA Management</span><span class="sk v">REST APIs</span><span class="sk v">SOAP</span><span class="sk a">Agentic AI</span><span class="sk a">RAG</span><span class="sk a">Prompt-Tuning</span><span class="sk a">Conversational Flows</span><span class="sk a">Virtual Agent</span><span class="sk">JavaScript</span><span class="sk">SQL</span><span class="sk">HTML / CSS</span></div></div>
+    <div id="platform" class="sp"><div class="stags"><span class="sk g">HRSD</span><span class="sk g">HR Case Management</span><span class="sk g">Lifecycle Events</span><span class="sk g">Employee Service Center</span><span class="sk g">EC Pro</span><span class="sk g">Now Mobile</span><span class="sk">Service Catalog</span><span class="sk">Knowledge Management</span><span class="sk">ACL / RBAC</span><span class="sk">SLA Management</span><span class="sk">Approval Workflows</span><span class="sk">Notifications</span></div></div>
+    <div id="dev" class="sp"><div class="stags"><span class="sk">Business Rules</span><span class="sk">Client Scripts</span><span class="sk">Script Includes</span><span class="sk">Glide API</span><span class="sk">Record Producers</span><span class="sk">UI Policies</span><span class="sk">UI Actions</span><span class="sk">Catalog Client Scripts</span><span class="sk">ACL Scripting</span><span class="sk">Scheduled Jobs</span></div></div>
+    <div id="auto" class="sp"><div class="stags"><span class="sk v">Flow Designer</span><span class="sk v">IntegrationHub</span><span class="sk v">Subflows</span><span class="sk">SLA Escalations</span><span class="sk">Approval Chains</span><span class="sk">Triggered Notifications</span><span class="sk">Scheduled Automation</span><span class="sk">Event-Based Triggers</span></div></div>
+    <div id="integ" class="sp"><div class="stags"><span class="sk v">REST APIs</span><span class="sk v">SOAP</span><span class="sk">OAuth / Basic Auth</span><span class="sk">Payload Mapping</span><span class="sk">Retry Logic</span><span class="sk">Error Handling</span><span class="sk">Audit Logging</span><span class="sk">HRIS Integration</span><span class="sk">Payroll Integration</span></div></div>
+    <div id="ai" class="sp"><div class="stags"><span class="sk a">Agentic AI</span><span class="sk a">RAG</span><span class="sk a">Prompt-Tuning</span><span class="sk a">Conversational Flows</span><span class="sk a">Virtual Agent</span><span class="sk">LLM Integration</span><span class="sk">NLP in Workflows</span><span class="sk">AI-Driven Automation</span></div></div>
+    <div id="tools" class="sp"><div class="stags"><span class="sk">JavaScript</span><span class="sk">SQL</span><span class="sk">HTML</span><span class="sk">CSS</span><span class="sk">Postman</span><span class="sk">JSON / XML</span><span class="sk">Agile / Scrum</span><span class="sk">UAT &amp; Testing</span><span class="sk">Technical Documentation</span></div></div>
+  </div>
+</section>
+
+<!-- ============================================================ CERTIFICATIONS -->
+<section id="certifications">
+  <div class="cf-ambient" style="right:2%;top:10%;--dur:12s;--del:1s;--op:.22;color:var(--emerald);">&lt;Certs /&gt;</div>
+  <div class="cf-ambient" style="left:1%;top:50%;--dur:9s;--del:0s;--op:.18;color:var(--amber);">CIS{}</div>
+  <div class="cf-ambient" style="right:6%;bottom:15%;--dur:15s;--del:4s;--op:.18;color:var(--indigo-l);">MW-PSEE</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">06 // CREDENTIALS</span></div>
+    <h2 class="sec-h">Certifications &amp; <span>Recognition</span></h2>
+
+    <!-- ServiceNow -->
+    <div class="cert-group-label reveal">ServiceNow</div>
+    <div class="cert-row reveal">
+      <div class="cert">
+        <div class="cert-badge b">CIS</div>
+        <div>
+          <div class="cert-n">CIS – HR Service Delivery (HRSD)</div>
+          <div class="cert-by">ServiceNow · Certified Implementation Specialist</div>
+        </div>
+        <span class="cert-pill">Active</span>
+      </div>
+      <div class="cert">
+        <div class="cert-badge g">CSA</div>
+        <div>
+          <div class="cert-n">Certified System Administrator</div>
+          <div class="cert-by">ServiceNow · CSA Certified</div>
+        </div>
+        <span class="cert-pill">Active</span>
+      </div>
+    </div>
+
+    <!-- Moveworks -->
+    <div class="cert-group-label reveal">Moveworks</div>
+    <div class="cert-row reveal reveal-d1">
+      <div class="cert">
+        <div class="cert-badge mw">PSE</div>
+        <div>
+          <div class="cert-n">Partner Delivery Engineer Enablement</div>
+          <div class="cert-by">Moveworks · MW-PSEE</div>
+        </div>
+        <span class="cert-pill" style="background:var(--amber-dim);border-color:rgba(245,158,11,.25);color:var(--amber);">Active</span>
+      </div>
+      <div class="cert">
+        <div class="cert-badge mw2">SEE</div>
+        <div>
+          <div class="cert-n">Partner Solutions Engineer Enablement</div>
+          <div class="cert-by">Moveworks · MW-SEE</div>
+        </div>
+        <span class="cert-pill" style="background:var(--rose-dim);border-color:rgba(244,63,94,.2);color:#fb7185;">Active</span>
+      </div>
+    </div>
+
+    <!-- Award -->
+    <div class="award-box reveal reveal-d2" style="margin-top:2rem;">
+      <span class="award-ic">🏆</span>
+      <div>
+        <div class="award-t">Star of the Quarter — INRY / CPrime</div>
+        <p class="award-d">Recognised for delivering scalable HRSD implementations, workflow automation excellence, and consistently maintaining perfect client satisfaction. This award reflects ownership, quality, and genuine impact — not just technical delivery, but true partnership with clients through every phase of the engagement.</p>
+      </div>
+      <div class="award-score"><div class="n">5/5</div><div class="l">CSAT SCORE</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ ROADMAP -->
+<section id="roadmap" class="alt">
+  <div class="cf-ambient" style="right:2%;top:15%;--dur:11s;--del:2s;--op:.2;color:var(--indigo-l);">&lt;Next /&gt;</div>
+  <div class="cf-ambient" style="left:1%;bottom:25%;--dur:13s;--del:0s;--op:.18;color:var(--amber);">v2.0{}</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">07 // WHAT'S NEXT</span></div>
+    <h2 class="sec-h">Learning <span>Roadmap</span></h2>
+    <p class="sec-sub">Expanding beyond delivery into knowledge-sharing, open resources, and AI-powered ServiceNow tooling.</p>
+    <div class="road-grid">
+      <div class="road-c reveal"><div class="road-pill s">Coming Soon</div><div class="road-ic">✍️</div><div class="road-t">HRSD Technical Blog</div><div class="road-d">Deep-dives on ServiceNow HRSD: implementation patterns, Flow Designer tips, integration architectures, and lessons from real enterprise delivery.</div></div>
+      <div class="road-c reveal reveal-d1"><div class="road-pill s">Coming Soon</div><div class="road-ic">📚</div><div class="road-t">ServiceNow Resource Hub</div><div class="road-d">Curated notes, reusable code snippets, interview prep material, and practical guides for HRSD consultants and developers.</div></div>
+      <div class="road-c reveal reveal-d2"><div class="road-pill b">In Progress</div><div class="road-ic">🤖</div><div class="road-t">AI-Powered HR Flow Prototypes</div><div class="road-d">Experimenting with Agentic AI and RAG to build intelligent, conversational HR workflows on ServiceNow beyond traditional Virtual Agent.</div></div>
+      <div class="road-c reveal reveal-d3"><div class="road-pill p">Planning</div><div class="road-ic">🎤</div><div class="road-t">ServiceNow Community Talks</div><div class="road-d">Planning sessions for the ServiceNow community — sharing HRSD learnings, integration patterns, and AI workflow experiments openly.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ EDUCATION -->
+<section id="education">
+  <div class="cf-ambient" style="right:2%;top:12%;--dur:10s;--del:1s;--op:.22;color:var(--indigo-l);">&lt;Education /&gt;</div>
+  <div class="cf-ambient" style="left:1%;top:55%;--dur:14s;--del:0s;--op:.18;color:var(--tx3);">B.Tech{}</div>
+  <div class="cf-ambient" style="right:5%;bottom:10%;--dur:12s;--del:3s;--op:.2;color:var(--emerald);">GITAM</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">08 // ACADEMICS</span></div>
+    <h2 class="sec-h">Educational <span>Background</span></h2>
+    <p class="sec-sub">A strong Computer Science foundation at GITAM University — the base that powers everything I build on ServiceNow.</p>
+
+    <!-- floating code tags scoped to this section -->
+    <div class="float-el" style="right:2%;top:10%;--dur:10s;--del:0s;font-size:11px;color:var(--indigo-l);">&lt;CS/&gt;</div>
+    <div class="float-el" style="left:1%;top:60%;--dur:13s;--del:2s;font-size:10px;color:var(--tx3);">B.Tech{}</div>
+
+    <div class="edu-grid reveal">
+      <!-- Main card -->
+      <div class="edu-card">
+        <div class="edu-badge">🎓</div>
+        <div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div>
+        <div class="edu-univ">GITAM University</div>
+        <div class="edu-period">📍 Visakhapatnam, India &nbsp;·&nbsp; 2020 – 2024</div>
+        <div class="edu-stats">
+          <span class="edu-stat cgpa">8.0+ CGPA</span>
+          <span class="edu-stat field">Computer Science</span>
+        </div>
+        <ul class="edu-highlights">
+          <li>Strong foundation in Data Structures, Algorithms, and Object-Oriented Programming — directly applied in ServiceNow scripting and Glide API development.</li>
+          <li>Hands-on exposure to Database Management, SQL, and system design — foundational to building robust HR data workflows and integrations.</li>
+          <li>Studied Software Engineering principles and SDLC methodologies — translated into clean, maintainable ServiceNow platform development practices.</li>
+          <li>Final year project bridging software automation with enterprise HR systems — the spark that led to a career in ServiceNow HRSD.</li>
+          <li>Completed Engineering Internship at DRDO Hyderabad during final year, applying backend scripting skills in a real high-stakes engineering environment.</li>
+        </ul>
+      </div>
+
+      <!-- Side panel -->
+      <div class="edu-side">
+        <div class="edu-timeline-block reveal reveal-d1">
+          <div class="edu-rel-lbl">ACADEMIC JOURNEY</div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">2020</div>
+            <div class="edu-tl-text"><b>Enrolled at GITAM University</b> — B.Tech CSE programme begins</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">2021–22</div>
+            <div class="edu-tl-text"><b>Core CS modules</b> — DSA, DBMS, OS, Networks, OOP</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">Apr 2023</div>
+            <div class="edu-tl-text"><b>DRDO Internship</b> — Engineering intern, 20% workflow efficiency gain</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">2024</div>
+            <div class="edu-tl-text"><b>Graduated</b> — B.Tech CSE, 8.0+ CGPA · Joined CPrime (INRY)</div>
+          </div>
+        </div>
+
+        <div class="edu-rel reveal reveal-d2">
+          <div class="edu-rel-lbl">RELEVANT COURSEWORK</div>
+          <div class="edu-rel-tags">
+            <span class="edu-tag">Data Structures &amp; Algorithms</span>
+            <span class="edu-tag">Database Management (SQL)</span>
+            <span class="edu-tag">Object-Oriented Programming</span>
+            <span class="edu-tag">Software Engineering</span>
+            <span class="edu-tag">Operating Systems</span>
+            <span class="edu-tag">Computer Networks</span>
+            <span class="edu-tag">Web Technologies</span>
+            <span class="edu-tag g">Applied to ServiceNow Dev</span>
+          </div>
+        </div>
+
+        <div class="edu-rel reveal reveal-d3">
+          <div class="edu-rel-lbl">SKILLS FROM ACADEMICS → PLATFORM</div>
+          <div class="edu-rel-tags">
+            <span class="edu-tag">JavaScript (OOP → Business Rules)</span>
+            <span class="edu-tag">SQL (→ GlideRecord Queries)</span>
+            <span class="edu-tag">REST APIs (→ IntegrationHub)</span>
+            <span class="edu-tag g">CSE → ServiceNow Dev</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CONTACT -->
+<section id="contact">
+  <div class="cf-ambient" style="right:2%;top:10%;--dur:11s;--del:0s;--op:.2;color:var(--indigo-l);">&lt;Contact /&gt;</div>
+  <div class="cf-ambient" style="left:1%;bottom:20%;--dur:13s;--del:2s;--op:.18;color:var(--emerald);">ping(me)</div>
+  <div class="sec">
+    <div class="sec-tag"><span class="sec-tag-inner">09 // LET'S TALK</span></div>
+    <h2 class="sec-h">Get In <span>Touch</span></h2>
+    <p class="sec-sub">Open to new roles, consulting projects, collaborations, and ServiceNow community connections.</p>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-p">I'm actively exploring new opportunities as a ServiceNow HRSD Consultant or Platform Developer. Whether you're looking for someone to lead an HRSD implementation, strengthen your ServiceNow team, or collaborate on something new — I'd love to talk.</p>
+        <p class="contact-p">I bring not just technical skills but a genuine passion for making HR service delivery better for real people — employees, HR teams, and the organisations they serve.</p>
+        <div class="clinks">
+          <a href="mailto:trivenigompa2688@gmail.com" class="cl"><span class="cl-ic">✉️</span><span class="cl-lbl">EMAIL</span>trivenigompa2688@gmail.com</a>
+          <a href="tel:+917286896999" class="cl"><span class="cl-ic">📱</span><span class="cl-lbl">PHONE</span>+91 72868 96999</a>
+          <a href="https://linkedin.com/in/triveni-gompa" target="_blank" class="cl"><span class="cl-ic">💼</span><span class="cl-lbl">LINKEDIN</span>linkedin.com/in/triveni-gompa</a>
+          <a href="#" class="cl"><span class="cl-ic">📍</span><span class="cl-lbl">LOCATION</span>Hyderabad, India · Open to Remote</a>
+        </div>
+        <div class="avail-pill"><div class="pdot"></div>Currently open to new opportunities</div>
+      </div>
+      <div class="cf reveal reveal-d2">
+        <div class="fg-row">
+          <div class="fg"><label>YOUR NAME</label><input type="text" placeholder="Jane Smith" id="fn"/></div>
+          <div class="fg"><label>YOUR EMAIL</label><input type="email" placeholder="jane@company.com" id="fe"/></div>
+        </div>
+        <div class="fg"><label>COMPANY</label><input type="text" placeholder="Acme Corp" id="fc"/></div>
+        <div class="fg">
+          <label>OPPORTUNITY TYPE</label>
+          <select id="ft">
+            <option value="">Select type...</option>
+            <option>Full-time Role</option>
+            <option>Contract / Consulting Project</option>
+            <option>Collaboration / Partnership</option>
+            <option>Community / Networking</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>MESSAGE</label><textarea id="fm" placeholder="Tell me about the opportunity or just say hello..."></textarea></div>
+        <button class="cf-btn" onclick="sendMsg()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-brand">TG.DEV</div>
+    <div class="foot-copy">© 2025 Triveni Gompa · Hyderabad, India · Built with precision</div>
+    <div class="foot-links">
+      <a href="#hero">Top</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="mailto:trivenigompa2688@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ JAVASCRIPT -->
+<script>
+/* ---- CURSOR ---- */
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+
+/* ---- SCROLL PROGRESS ---- */
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(s/h*100)+'%';
+  document.getElementById('nav').classList.toggle('scrolled',s>40);
+  // active nav
+  const ids=['about','expertise','experience','case-studies','skills','certifications','education','contact'];
+  let active='';
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-100)active=id;});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+active);
+  });
+});
+
+/* ---- MOBILE NAV ---- */
+document.getElementById('hamBtn').addEventListener('click',()=>document.getElementById('mob-nav').classList.toggle('open'));
+function closeMob(){document.getElementById('mob-nav').classList.remove('open');}
+
+/* ---- INTERSECTION OBSERVER ---- */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- SKILLS FILTER ---- */
+document.getElementById('sfWrap').addEventListener('click',e=>{
+  if(!e.target.matches('.sf-b'))return;
+  document.querySelectorAll('.sf-b').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.sp').forEach(p=>p.classList.remove('on'));
+  e.target.classList.add('on');
+  const panel=document.getElementById(e.target.dataset.t);
+  if(panel){panel.classList.add('on');io.observe(panel);}
+});
+
+/* ---- TYPED ANIMATION ---- */
+const phrases=['Building HRSD Solutions','Automating HR Workflows','Integrating Enterprise Systems','Designing Lifecycle Events','Engineering with Flow Designer','Exploring Agentic AI on ServiceNow'];
+let pi=0,ci=0,del=false;
+const tyEl=document.getElementById('typed-text');
+function type(){
+  const phrase=phrases[pi];
+  if(!del){
+    tyEl.textContent=phrase.slice(0,++ci);
+    if(ci===phrase.length){del=true;setTimeout(type,1800);return;}
+  }else{
+    tyEl.textContent=phrase.slice(0,--ci);
+    if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return;}
+  }
+  setTimeout(type,del?45:75);
+}
+setTimeout(type,800);
+
+/* ---- CONTACT FORM ---- */
+function sendMsg(){
+  const n=document.getElementById('fn').value.trim(),em=document.getElementById('fe').value.trim(),msg=document.getElementById('fm').value.trim();
+  if(!n||!em||!msg){alert('Please fill in your name, email, and message.');return;}
+  window.location.href=`mailto:trivenigompa2688@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry – '+n)}&body=${encodeURIComponent('Hi Triveni,\n\n'+msg+'\n\nBest,\n'+n+'\n'+em)}`;
+}
+
+/* ============================================================
+   INTERACTIVE CANVAS BACKGROUND
+   - Floating nodes connected by lines (like a circuit/network)
+   - Reacts to mouse movement
+   - Node colors match the indigo/emerald palette
+============================================================ */
+(function(){
+  const canvas=document.getElementById('bg-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,nodes=[];
+  const COLORS=['rgba(99,102,241,','rgba(16,185,129,','rgba(124,109,250,','rgba(245,158,11,'];
+  const mouse={x:-9999,y:-9999};
+
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+  }
+  window.addEventListener('resize',()=>{resize();init();});
+  document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+
+  function init(){
+    nodes=[];
+    const count=Math.floor((W*H)/18000);
+    for(let i=0;i<count;i++){
+      const c=COLORS[Math.floor(Math.random()*COLORS.length)];
+      nodes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35,
+        r:Math.random()*2+1,
+        color:c,
+        baseOpacity:Math.random()*.4+.1,
+        opacity:0,
+        opDir:1,
+        opSpeed:Math.random()*.004+.002,
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+
+    // update & draw nodes
+    nodes.forEach(n=>{
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+
+      // pulse opacity
+      n.opacity+=n.opSpeed*n.opDir;
+      if(n.opacity>=n.baseOpacity)n.opDir=-1;
+      if(n.opacity<=0){n.opDir=1;}
+
+      // mouse repulsion
+      const dx=n.x-mouse.x,dy=n.y-mouse.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        const force=(120-dist)/120*0.5;
+        n.vx+=dx/dist*force; n.vy+=dy/dist*force;
+        // clamp speed
+        const spd=Math.sqrt(n.vx*n.vx+n.vy*n.vy);
+        if(spd>1.5){n.vx=n.vx/spd*1.5;n.vy=n.vy/spd*1.5;}
+      }
+
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=n.color+Math.max(0,n.opacity)+')';
+      ctx.fill();
+    });
+
+    // draw connections
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i],b=nodes[j];
+        const dx=a.x-b.x,dy=a.y-b.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        const maxDist=140;
+        if(dist<maxDist){
+          const alpha=(1-dist/maxDist)*0.12;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=`rgba(99,102,241,${alpha})`;
+          ctx.lineWidth=.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // mouse proximity highlight
+    nodes.forEach(n=>{
+      const dx=n.x-mouse.x,dy=n.y-mouse.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<200){
+        const alpha=(1-dist/200)*0.35;
+        ctx.beginPath();
+        ctx.moveTo(mouse.x,mouse.y);ctx.lineTo(n.x,n.y);
+        ctx.strokeStyle=`rgba(99,102,241,${alpha})`;
+        ctx.lineWidth=.5;ctx.stroke();
+        // bigger glow dot
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,n.r*2,0,Math.PI*2);
+        ctx.fillStyle=n.color+alpha+')';
+        ctx.fill();
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();init();draw();
+})();
+</script>
+</body>
+</html>
